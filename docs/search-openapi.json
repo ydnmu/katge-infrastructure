@@ -1,0 +1,2851 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Katge optional search and asset extraction API",
+    "version": "1.0.0",
+    "description": "Generated from the runtime Zod contracts. This reference covers the optional search surface, shared job operations and clip creation. Other legacy REST routes and MCP transport are outside this document. KATGE_SEARCH_ENABLED defaults to 0; this file does not assert a live deployment. Tenant identity comes from authentication. Source registration is restricted to the exact operator-owned MP4 catalogue. Results are unverified candidates; speech is literal text search. first/all occurrence proof and temporal/action verification are unavailable."
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    },
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/v1/assets/inspect": {
+      "post": {
+        "operationId": "inspect_asset",
+        "summary": "Inspect or retrieve a tenant asset snapshot",
+        "x-required-scopes": [
+          "media:inspect"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InspectAssetInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/speech": {
+      "post": {
+        "operationId": "search_speech",
+        "summary": "Queue speech search in a tenant asset snapshot",
+        "x-required-scopes": [
+          "search:create"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpeechSearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Durable work admitted; inspect the returned job or per-interval refusals.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128
+            },
+            "description": "Supply this header or body idempotency_key. If both are supplied they must match. Extraction batch keys have a 96-character limit."
+          }
+        ]
+      }
+    },
+    "/v1/search/visual": {
+      "post": {
+        "operationId": "search_visual",
+        "summary": "Queue visual search in a tenant asset snapshot",
+        "x-required-scopes": [
+          "search:create"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VisualSearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Durable work admitted; inspect the returned job or per-interval refusals.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128
+            },
+            "description": "Supply this header or body idempotency_key. If both are supplied they must match. Extraction batch keys have a 96-character limit."
+          }
+        ]
+      }
+    },
+    "/v1/search/multimodal": {
+      "post": {
+        "operationId": "search_multimodal",
+        "summary": "Queue multimodal search in a tenant asset snapshot",
+        "x-required-scopes": [
+          "search:create"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MultimodalSearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Durable work admitted; inspect the returned job or per-interval refusals.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchJob"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128
+            },
+            "description": "Supply this header or body idempotency_key. If both are supplied they must match. Extraction batch keys have a 96-character limit."
+          }
+        ]
+      }
+    },
+    "/v1/clips": {
+      "post": {
+        "operationId": "create_clips",
+        "summary": "Queue one legacy URL clip or up to ten asset intervals in milliseconds",
+        "x-required-scopes": [
+          "clips:create"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateClipInput"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ExtractAssetClipsInput"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Durable work admitted; inspect the returned job or per-interval refusals.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ClipJob"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AssetClips"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128
+            },
+            "description": "Supply this header or body idempotency_key. If both are supplied they must match. Extraction batch keys have a 96-character limit."
+          }
+        ]
+      }
+    },
+    "/v1/jobs/{job_id}": {
+      "parameters": [
+        {
+          "name": "job_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^(?:job|search)_[0-9a-f-]{36}$"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "get_job",
+        "summary": "Read a tenant job",
+        "x-required-scopes": [
+          "jobs:read"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ClipJob"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SearchJob"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/{job_id}/cancel": {
+      "parameters": [
+        {
+          "name": "job_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^(?:job|search)_[0-9a-f-]{36}$"
+          }
+        }
+      ],
+      "post": {
+        "operationId": "cancel_job",
+        "summary": "Request cancellation; cleanup may still be pending",
+        "x-required-scopes": [
+          "jobs:cancel"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ClipJob"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SearchJob"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/{job_id}/result": {
+      "parameters": [
+        {
+          "name": "job_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^(?:job|search)_[0-9a-f-]{36}$"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "get_result",
+        "summary": "Read a completed/partial search or a completed clip capability",
+        "x-required-scopes": [
+          "jobs:read"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/SearchResult"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ClipResult"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Idempotency conflict or result pending; pending results include Retry-After: 2.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "413": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          },
+          "500": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Structured safe error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Suggested retry delay in seconds, when supplied."
+              }
+            }
+          }
+        },
+        "description": "Search results additionally require search:read. Clip results additionally require clips:read. Pending results return 409 with Retry-After: 2. Poll jobs at least two seconds apart. Expired or foreign jobs are hidden."
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "OAuth access token for the REST resource; database grants and token scopes both apply."
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key",
+        "description": "Provisioned scoped REST service key. API keys cannot authenticate MCP."
+      }
+    },
+    "schemas": {
+      "InspectAssetInput": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "url"
+                  },
+                  "url": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2048,
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "type",
+                  "url"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "source"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "asset_id": {
+                "type": "string",
+                "pattern": "^asset_[0-9a-f-]{36}$"
+              }
+            },
+            "required": [
+              "asset_id"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "source_revision": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "duration_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "media_time_origin_ms": {
+            "type": "number",
+            "const": 0
+          },
+          "index_profiles": {
+            "type": "object",
+            "properties": {
+              "speech": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "visual": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              }
+            },
+            "additionalProperties": false
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "speech": {
+                "type": "boolean"
+              },
+              "visual": {
+                "type": "boolean"
+              },
+              "multimodal": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "speech",
+              "visual",
+              "multimodal"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "asset_id",
+          "source_revision",
+          "duration_ms",
+          "media_time_origin_ms",
+          "index_profiles",
+          "capabilities"
+        ],
+        "additionalProperties": false
+      },
+      "SpeechSearchInput": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "result_scope": {
+            "default": "all",
+            "type": "string",
+            "enum": [
+              "first",
+              "all"
+            ]
+          },
+          "limit": {
+            "default": 20,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9._:-]+$"
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "required": [
+          "asset_id",
+          "result_scope",
+          "limit",
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "VisualSearchInput": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "result_scope": {
+            "default": "all",
+            "type": "string",
+            "enum": [
+              "first",
+              "all"
+            ]
+          },
+          "limit": {
+            "default": 20,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9._:-]+$"
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "required": [
+          "asset_id",
+          "result_scope",
+          "limit",
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "MultimodalSearchInput": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "result_scope": {
+            "default": "all",
+            "type": "string",
+            "enum": [
+              "first",
+              "all"
+            ]
+          },
+          "limit": {
+            "default": 20,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9._:-]+$"
+          },
+          "speech_query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "visual_query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "temporal_operator": {
+            "type": "string",
+            "enum": [
+              "AND",
+              "OR"
+            ]
+          },
+          "temporal_tolerance_ms": {
+            "default": 0,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 60000
+          }
+        },
+        "required": [
+          "asset_id",
+          "result_scope",
+          "limit",
+          "speech_query",
+          "visual_query",
+          "temporal_operator",
+          "temporal_tolerance_ms"
+        ],
+        "additionalProperties": false,
+        "description": "AND combines overlapping candidate intervals, optionally within temporal_tolerance_ms. OR unions candidates and requires temporal_tolerance_ms=0. Supply idempotency_key in the body or Idempotency-Key header.",
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "temporal_operator": {
+                  "const": "OR"
+                }
+              },
+              "required": [
+                "temporal_operator"
+              ]
+            },
+            "then": {
+              "properties": {
+                "temporal_tolerance_ms": {
+                  "const": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SearchJob": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^search_[0-9a-f-]{36}$"
+          },
+          "kind": {
+            "type": "string",
+            "const": "search"
+          },
+          "pool": {
+            "type": "string",
+            "enum": [
+              "speech",
+              "visual",
+              "multimodal"
+            ]
+          },
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "waiting",
+              "retry_wait",
+              "completed",
+              "partial",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "result_available": {
+            "type": "boolean"
+          },
+          "cancellation_requested": {
+            "type": "boolean"
+          },
+          "attempts": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_ARGUMENT",
+                  "INVALID_TIMESTAMP",
+                  "SEGMENT_TOO_LONG",
+                  "SOURCE_TOO_LONG",
+                  "SOURCE_UNSUPPORTED",
+                  "SOURCE_UNAVAILABLE",
+                  "SOURCE_PRIVATE",
+                  "MEDIA_NOT_FOUND",
+                  "RATE_LIMITED",
+                  "QUOTA_EXCEEDED",
+                  "JOB_NOT_FOUND",
+                  "CLIP_NOT_FOUND",
+                  "UNAUTHORIZED",
+                  "FORBIDDEN",
+                  "IDEMPOTENCY_CONFLICT",
+                  "PROCESSING_FAILED",
+                  "ENGINE_UNAVAILABLE",
+                  "TEMPORARY_FAILURE",
+                  "MANIFEST_EXPIRED",
+                  "INTERNAL_ERROR"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "retryable"
+            ],
+            "additionalProperties": false
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "job_id",
+          "kind",
+          "pool",
+          "asset_id",
+          "status",
+          "result_available",
+          "cancellation_requested",
+          "attempts",
+          "expires_at"
+        ],
+        "additionalProperties": false
+      },
+      "SearchResult": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^search_[0-9a-f-]{36}$"
+          },
+          "kind": {
+            "type": "string",
+            "const": "search"
+          },
+          "pool": {
+            "type": "string",
+            "enum": [
+              "speech",
+              "visual",
+              "multimodal"
+            ]
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "asset_id": {
+                "type": "string",
+                "pattern": "^asset_[0-9a-f-]{36}$"
+              },
+              "source_revision": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024
+              },
+              "duration_ms": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "result_scope": {
+                "type": "string",
+                "enum": [
+                  "first",
+                  "all"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "completed",
+                  "partial"
+                ]
+              },
+              "match_kind": {
+                "type": "string",
+                "enum": [
+                  "literal_text",
+                  "ranked_semantic_candidates",
+                  "temporal_fusion_candidates"
+                ]
+              },
+              "matches": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start_ms": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "end_ms": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "verification": {
+                      "type": "string",
+                      "const": "candidate"
+                    },
+                    "speech_evidence": {
+                      "maxItems": 200,
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "evidence_id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 1024
+                          },
+                          "producer_revision": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 1024
+                          },
+                          "reference": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 1024
+                          },
+                          "text": {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          "similarity": {
+                            "type": "number",
+                            "minimum": -1,
+                            "maximum": 1
+                          },
+                          "score_kind": {
+                            "type": "string",
+                            "const": "cosine_similarity"
+                          }
+                        },
+                        "required": [
+                          "evidence_id",
+                          "producer_revision",
+                          "reference"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "visual_evidence": {
+                      "maxItems": 200,
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "evidence_id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 1024
+                          },
+                          "producer_revision": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 1024
+                          },
+                          "reference": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 1024
+                          },
+                          "text": {
+                            "type": "string",
+                            "maxLength": 4096
+                          },
+                          "similarity": {
+                            "type": "number",
+                            "minimum": -1,
+                            "maximum": 1
+                          },
+                          "score_kind": {
+                            "type": "string",
+                            "const": "cosine_similarity"
+                          }
+                        },
+                        "required": [
+                          "evidence_id",
+                          "producer_revision",
+                          "reference"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "start_ms",
+                    "end_ms",
+                    "verification",
+                    "speech_evidence",
+                    "visual_evidence"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "coverage": {
+                "type": "object",
+                "properties": {
+                  "speech": {
+                    "type": "object",
+                    "properties": {
+                      "processed_intervals": {
+                        "maxItems": 10000,
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "integer",
+                              "exclusiveMinimum": 0,
+                              "maximum": 9007199254740991
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "unprocessed_intervals": {
+                        "maxItems": 10000,
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "integer",
+                              "exclusiveMinimum": 0,
+                              "maximum": 9007199254740991
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "coverage_ratio": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    },
+                    "required": [
+                      "processed_intervals",
+                      "unprocessed_intervals",
+                      "coverage_ratio"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "visual": {
+                    "type": "object",
+                    "properties": {
+                      "processed_intervals": {
+                        "maxItems": 10000,
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "integer",
+                              "exclusiveMinimum": 0,
+                              "maximum": 9007199254740991
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "unprocessed_intervals": {
+                        "maxItems": 10000,
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            {
+                              "type": "integer",
+                              "exclusiveMinimum": 0,
+                              "maximum": 9007199254740991
+                            }
+                          ],
+                          "items": false,
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "coverage_ratio": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    },
+                    "required": [
+                      "processed_intervals",
+                      "unprocessed_intervals",
+                      "coverage_ratio"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              },
+              "partial_reasons": {
+                "maxItems": 100,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 128
+                }
+              },
+              "temporal_verification": {
+                "type": "string",
+                "const": "pending"
+              },
+              "first_occurrence_proven": {
+                "type": "boolean",
+                "const": false
+              },
+              "all_occurrences_proven": {
+                "type": "boolean",
+                "const": false
+              }
+            },
+            "required": [
+              "asset_id",
+              "source_revision",
+              "duration_ms",
+              "result_scope",
+              "status",
+              "match_kind",
+              "matches",
+              "coverage",
+              "partial_reasons",
+              "temporal_verification",
+              "first_occurrence_proven",
+              "all_occurrences_proven"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "job_id",
+          "kind",
+          "pool",
+          "result"
+        ],
+        "additionalProperties": false
+      },
+      "CreateClipInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "format": "uri"
+          },
+          "start_seconds": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 31536000
+          },
+          "end_seconds": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 31536000
+          },
+          "format": {
+            "default": "mp4",
+            "type": "string",
+            "enum": [
+              "mp4",
+              "mp3"
+            ]
+          },
+          "max_height": {
+            "type": "integer",
+            "minimum": 144,
+            "maximum": 4320
+          },
+          "max_fps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 120
+          },
+          "source_revision": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9._:-]+$"
+          },
+          "provider_assist": {
+            "type": "object",
+            "properties": {
+              "manifest_candidate": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2048
+              },
+              "observed_at": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "media_kind": {
+                "type": "string",
+                "enum": [
+                  "hls"
+                ]
+              }
+            },
+            "required": [
+              "manifest_candidate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "url",
+          "start_seconds",
+          "end_seconds",
+          "format"
+        ],
+        "additionalProperties": false
+      },
+      "ExtractAssetClipsInput": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "intervals": {
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "format": {
+            "default": "mp4",
+            "type": "string",
+            "enum": [
+              "mp4",
+              "mp3"
+            ]
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 96,
+            "pattern": "^[A-Za-z0-9._:-]+$"
+          },
+          "max_height": {
+            "type": "integer",
+            "minimum": 144,
+            "maximum": 4320
+          },
+          "max_fps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 120
+          }
+        },
+        "required": [
+          "asset_id",
+          "intervals",
+          "format"
+        ],
+        "additionalProperties": false
+      },
+      "AssetClips": {
+        "type": "object",
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^asset_[0-9a-f-]{36}$"
+          },
+          "source_revision": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "partial",
+              "rejected"
+            ]
+          },
+          "items": {
+            "minItems": 1,
+            "maxItems": 10,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "interval": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "job": {
+                  "type": "object",
+                  "properties": {
+                    "job_id": {
+                      "type": "string",
+                      "pattern": "^job_[0-9a-f-]{36}$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "queued",
+                        "resolving",
+                        "processing",
+                        "waiting_client_io",
+                        "finalizing",
+                        "retry_wait",
+                        "completed",
+                        "failed_terminal",
+                        "cancelled"
+                      ]
+                    },
+                    "progress": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "clip_id": {
+                      "type": "string",
+                      "pattern": "^clip_[0-9a-f-]{36}$"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "enum": [
+                            "INVALID_ARGUMENT",
+                            "INVALID_TIMESTAMP",
+                            "SEGMENT_TOO_LONG",
+                            "SOURCE_TOO_LONG",
+                            "SOURCE_UNSUPPORTED",
+                            "SOURCE_UNAVAILABLE",
+                            "SOURCE_PRIVATE",
+                            "MEDIA_NOT_FOUND",
+                            "RATE_LIMITED",
+                            "QUOTA_EXCEEDED",
+                            "JOB_NOT_FOUND",
+                            "CLIP_NOT_FOUND",
+                            "UNAUTHORIZED",
+                            "FORBIDDEN",
+                            "IDEMPOTENCY_CONFLICT",
+                            "PROCESSING_FAILED",
+                            "ENGINE_UNAVAILABLE",
+                            "TEMPORARY_FAILURE",
+                            "MANIFEST_EXPIRED",
+                            "INTERNAL_ERROR"
+                          ]
+                        },
+                        "message": {
+                          "type": "string"
+                        },
+                        "retryable": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message",
+                        "retryable"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "cancellation_requested": {
+                      "type": "boolean"
+                    },
+                    "attempts": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "max_attempts": {
+                      "type": "integer",
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "next_attempt_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    }
+                  },
+                  "required": [
+                    "job_id",
+                    "status",
+                    "progress"
+                  ],
+                  "additionalProperties": false
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "INVALID_ARGUMENT",
+                        "INVALID_TIMESTAMP",
+                        "SEGMENT_TOO_LONG",
+                        "SOURCE_TOO_LONG",
+                        "SOURCE_UNSUPPORTED",
+                        "SOURCE_UNAVAILABLE",
+                        "SOURCE_PRIVATE",
+                        "MEDIA_NOT_FOUND",
+                        "RATE_LIMITED",
+                        "QUOTA_EXCEEDED",
+                        "JOB_NOT_FOUND",
+                        "CLIP_NOT_FOUND",
+                        "UNAUTHORIZED",
+                        "FORBIDDEN",
+                        "IDEMPOTENCY_CONFLICT",
+                        "PROCESSING_FAILED",
+                        "ENGINE_UNAVAILABLE",
+                        "TEMPORARY_FAILURE",
+                        "MANIFEST_EXPIRED",
+                        "INTERNAL_ERROR"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "retryable": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "interval"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "asset_id",
+          "source_revision",
+          "status",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "ClipJob": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^job_[0-9a-f-]{36}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "resolving",
+              "processing",
+              "waiting_client_io",
+              "finalizing",
+              "retry_wait",
+              "completed",
+              "failed_terminal",
+              "cancelled"
+            ]
+          },
+          "progress": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "clip_id": {
+            "type": "string",
+            "pattern": "^clip_[0-9a-f-]{36}$"
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_ARGUMENT",
+                  "INVALID_TIMESTAMP",
+                  "SEGMENT_TOO_LONG",
+                  "SOURCE_TOO_LONG",
+                  "SOURCE_UNSUPPORTED",
+                  "SOURCE_UNAVAILABLE",
+                  "SOURCE_PRIVATE",
+                  "MEDIA_NOT_FOUND",
+                  "RATE_LIMITED",
+                  "QUOTA_EXCEEDED",
+                  "JOB_NOT_FOUND",
+                  "CLIP_NOT_FOUND",
+                  "UNAUTHORIZED",
+                  "FORBIDDEN",
+                  "IDEMPOTENCY_CONFLICT",
+                  "PROCESSING_FAILED",
+                  "ENGINE_UNAVAILABLE",
+                  "TEMPORARY_FAILURE",
+                  "MANIFEST_EXPIRED",
+                  "INTERNAL_ERROR"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "retryable"
+            ],
+            "additionalProperties": false
+          },
+          "cancellation_requested": {
+            "type": "boolean"
+          },
+          "attempts": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "max_attempts": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "next_attempt_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+          }
+        },
+        "required": [
+          "job_id",
+          "status",
+          "progress"
+        ],
+        "additionalProperties": false
+      },
+      "ClipResult": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^(?:job|search)_[0-9a-f-]{36}$"
+          },
+          "kind": {
+            "type": "string",
+            "const": "clip"
+          },
+          "clip": {
+            "type": "object",
+            "properties": {
+              "clip_id": {
+                "type": "string",
+                "pattern": "^clip_[0-9a-f-]{36}$"
+              },
+              "duration_seconds": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "mime_type": {
+                "type": "string",
+                "enum": [
+                  "video/mp4",
+                  "audio/mpeg"
+                ]
+              },
+              "size_bytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "expires_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+              },
+              "download_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "download_url_expires_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+              }
+            },
+            "required": [
+              "clip_id",
+              "duration_seconds",
+              "mime_type",
+              "size_bytes",
+              "expires_at",
+              "download_url",
+              "download_url_expires_at"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "job_id",
+          "kind",
+          "clip"
+        ],
+        "additionalProperties": false
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_ARGUMENT",
+                  "INVALID_TIMESTAMP",
+                  "SEGMENT_TOO_LONG",
+                  "SOURCE_TOO_LONG",
+                  "SOURCE_UNSUPPORTED",
+                  "SOURCE_UNAVAILABLE",
+                  "SOURCE_PRIVATE",
+                  "MEDIA_NOT_FOUND",
+                  "RATE_LIMITED",
+                  "QUOTA_EXCEEDED",
+                  "JOB_NOT_FOUND",
+                  "CLIP_NOT_FOUND",
+                  "UNAUTHORIZED",
+                  "FORBIDDEN",
+                  "IDEMPOTENCY_CONFLICT",
+                  "PROCESSING_FAILED",
+                  "ENGINE_UNAVAILABLE",
+                  "TEMPORARY_FAILURE",
+                  "MANIFEST_EXPIRED",
+                  "INTERNAL_ERROR"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "retryable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "retryable"
+            ],
+            "additionalProperties": false
+          },
+          "request_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}
