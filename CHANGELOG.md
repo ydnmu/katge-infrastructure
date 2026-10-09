@@ -1,14 +1,16 @@
 # Release status
 
-## 9 October 2026 — presentation candidate
+## 9 October 2026 — public presentation
 
 Public documentation describes the backend-connected architecture and its actual
 limitations. The website candidate withdraws legacy extension ZIPs, corrects data
 flow descriptions, improves reference loading and preserves navigation at desktop
 and mobile widths.
 
-These changes await review and publication. No backend deployment, browser-store
-submission or public search rollout is announced.
+This presentation is published in its own GitHub repository, independently of
+the private source repositories. Website refinements and extension candidates
+remain separate release work. No backend deployment, browser-store submission
+or public search rollout is announced.
 
 The isolated presentation guard now checks removed content in reachable Git
 history as well as current files. The preview image reflects the last verified
