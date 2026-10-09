@@ -39,7 +39,8 @@ repository history. Browser and service source are reviewed separately.
 
 With Node.js 24 and Git installed, run `node scripts/check-publication.mjs` to
 check the approved file inventory, relative links, image headers and isolated
-history. No package installation is required.
+history, including removed historical content. Run `node --test scripts/history.test.mjs`
+to verify the history guard. No package installation is required.
 
 After committing reviewed changes, `node scripts/export.mjs` creates a ZIP from
 that exact commit and records its SHA-256 in the ignored `.data` directory. The
