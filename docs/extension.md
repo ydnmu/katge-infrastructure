@@ -20,6 +20,11 @@ No download URL is provided here until the service, package hashes, browser
 behavior and release review are accepted. Chromium, Firefox and Opera are build
 targets; a build target is not a store approval or live compatibility guarantee.
 
+The 9 October 2026 invalid-request protocol probe received HTTP 404 from the
+production session, inspection, planning and observation-spec routes. This is
+a publication blocker. Authenticated live flows and browser acceptance still
+need to pass after the compatible deployment is available.
+
 ## Installation after publication
 
 For a reviewed Chromium ZIP, extract it and use Load unpacked in the browser's

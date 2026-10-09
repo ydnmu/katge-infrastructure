@@ -10,6 +10,11 @@ and mobile widths.
 These changes await review and publication. No backend deployment, browser-store
 submission or public search rollout is announced.
 
+The isolated presentation guard now checks removed content in reachable Git
+history as well as current files. The preview image reflects the last verified
+development page. Extension publication remains blocked by missing consumer
+routes in the production protocol probe.
+
 ## 8 October 2026 — development foundations
 
 Backend-connected extension 1.1.0, durable search contracts and shared speech and
