@@ -1,8 +1,7 @@
 # Katge REST API
 
-Build media selection into an application: inspect a supported source, request
-an interval, follow the job and retrieve its result. The API exposes inputs,
-status and results; it does not expose the processing implementation.
+Inspect supported media, request a clip, follow its job and retrieve the result
+through REST endpoints.
 
 [Overview](../README.md) · [MCP](mcp.md) · [Release status](releases.md)
 
@@ -25,7 +24,7 @@ For a supported source, an illustrative `POST /v1/clips` JSON body is:
 
 ```json
 {
-  "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "url": "https://media.example.org/interview.mp4",
   "start_seconds": 12,
   "end_seconds": 20,
   "format": "mp4",
@@ -33,6 +32,7 @@ For a supported source, an illustrative `POST /v1/clips` JSON body is:
 }
 ```
 
+Replace the example URL with a supported public source you can access.
 Inspect first to confirm source availability, duration and format support.
 Core clip timestamps are in seconds. End must exceed start and fit the source
 and caller's limits. Requested formats are `mp4` or `mp3` when supported.

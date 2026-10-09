@@ -15,13 +15,11 @@ the completed result. The browser interface keeps selection close to the source.
 
 For example, a user can choose an eight-second passage from a supported public
 video and request MP4. Source availability and format support determine whether
-that request can complete. Inspect first; there is no promise of universal
-platform support.
+that request can complete. Inspect first to check the source and available formats.
 
 Requests include a source URL, an installation identity and an API credential.
-Some providers require bounded observations of public-player fields. A service
-plan can require generic media transport and upload before the private worker
-produces the result.
+Some providers require bounded observations of public-player fields. Media can
+be transferred to the Katge service for processing.
 
 ## Release status
 

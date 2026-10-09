@@ -1,9 +1,10 @@
 # Privacy and data flow
 
-The product website bundles fonts locally and stores language and display
-preferences in the browser. Product and documentation pages contain no analytics
-or advertising trackers. Hosting providers and servers receive ordinary
-connection data, including IP addresses and browser information.
+The reviewed website build bundles fonts locally and stores language and display
+preferences in the browser. The live website loads Cloudflare's performance
+beacon, observed on 9 October 2026. See [Cloudflare's data collection documentation](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/)
+for its performance metrics. Hosting providers and servers receive connection
+data, including IP addresses and browser information.
 
 The backend-connected extension sends requested source URLs, an installation
 identifier, API credentials and sometimes bounded public-player observations to

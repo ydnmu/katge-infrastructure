@@ -1,5 +1,12 @@
 # Release status
 
+## 9 October 2026 — documentation review
+
+Shortened repeated workflow descriptions, made the API example an explicit
+sample URL, and corrected the privacy description to acknowledge the live
+website's Cloudflare performance beacon. Diagram labels describe the clip
+workflow directly; animation and theme support are unchanged.
+
 ## 9 October 2026 — animated product flow
 
 The Infrastructure README now animates source selection, request flow and result
@@ -38,8 +45,8 @@ routes in the production protocol probe.
 
 ## 8 October 2026 — development foundations
 
-Backend-connected extension 1.1.0, durable search contracts and shared speech and
-visual indexes were prepared locally. Search is disabled by default. Visual
+Backend-connected extension 1.1.0 and preview search contracts were prepared
+locally. Search is disabled by default. Visual
 results remain candidates, and Turkish visual-query quality remains unresolved.
 
 Prior browser-store versions have separate processing behavior. This repository

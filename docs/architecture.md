@@ -1,8 +1,8 @@
 # How Katge works
 
-Katge brings the part of a supported media source into the workflow that needs
-it. People use a browser extension, applications use REST, and assistants use MCP.
-The public contract is a source, an interval, a request state and a result.
+Katge accepts a supported public media URL and a selected interval, then returns
+job status and clip metadata. Browser extensions, REST API and MCP expose this
+workflow to people, applications and assistants.
 
 [Overview](../README.md) · [API](api.md) · [MCP](mcp.md) · [Extensions](extension.md)
 
@@ -18,9 +18,8 @@ flowchart LR
   Assistant["MCP"] --- Katge
 ```
 
-This is a view of externally visible behavior. The Katge box intentionally
-represents the product as a whole; the diagram is not a map of its implementation
-or deployment.
+The Katge box represents the whole product. Internal components and deployment
+topology are omitted.
 
 ## Inspect
 
