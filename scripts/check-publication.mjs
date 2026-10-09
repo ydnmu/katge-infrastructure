@@ -11,6 +11,7 @@ export const allowed = new Set([
   'docs/architecture.md', 'docs/api.md', 'docs/extension.md', 'docs/privacy.md', 'docs/search-openapi.json',
   'scripts/check-publication.mjs', 'scripts/doc-links.mjs',
   '.github/workflows/verify.yml',
+  'scripts/export.mjs',
 ])
 const inventory = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: root, encoding: 'utf8', windowsHide: true }).split('\0').filter(Boolean)
 const failures = []
@@ -31,7 +32,7 @@ failures.push(...checkLinks(root, [...allowed].filter(file => file.endsWith('.md
 const schema = JSON.parse(readFileSync(resolve(root, 'docs/search-openapi.json'), 'utf8'))
 if (schema.openapi !== '3.1.0' || Object.keys(schema.paths ?? {}).length !== 8) failures.push('Unexpected contract reference')
 const roots = execFileSync('git', ['rev-list', '--max-parents=0', 'HEAD'], { cwd: root, encoding: 'utf8', windowsHide: true }).trim().split(/\r?\n/)
-if (roots.length !== 1 || !roots[0].startsWith('1b61b32')) failures.push('Presentation history no longer starts from the reviewed isolated root')
+if (roots.length !== 1 || roots[0] !== '1b61b32883aaf0c1931c037e56296ad7e9e2a4a5') failures.push('Presentation history no longer starts from the reviewed isolated root')
 const historicalPaths = execFileSync('git', ['log', '--all', '--format=', '--name-only'], { cwd: root, encoding: 'utf8', windowsHide: true }).split(/\r?\n/).filter(Boolean)
 if (historicalPaths.some(file => !allowed.has(file))) failures.push('Unreviewed path exists in presentation history')
 if (failures.length) { console.error([...new Set(failures)].join('\n')); process.exitCode = 1 }

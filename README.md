@@ -34,3 +34,13 @@ backend implementation, private infrastructure, credentials or inherited code
 repository history. Browser and service source are reviewed separately.
 
 [Privacy and data flow](docs/privacy.md) · [Security reporting](SECURITY.md)
+
+## Review locally
+
+With Node.js 24 and Git installed, run `node scripts/check-publication.mjs` to
+check the approved file inventory, relative links, image headers and isolated
+history. No package installation is required.
+
+After committing reviewed changes, `node scripts/export.mjs` creates a ZIP from
+that exact commit and records its SHA-256 in the ignored `.data` directory. The
+export includes neither the Git database nor local working files.
