@@ -6,6 +6,10 @@ export function contentFindings(file, bytes) {
     return bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) ? [] : [`${file}: unexpected image format`]
   }
   const text = bytes.toString('utf8')
+  if (file.endsWith('.svg')) {
+    if (!/^<svg\b[\s\S]*<\/svg>\s*$/.test(text)) return [`${file}: unexpected SVG format`]
+    if (/<!DOCTYPE|<!ENTITY|<(?:script|foreignObject|image|animate\w*|set|a)\b|\son[a-z]+\s*=|(?:href|src)\s*=|url\(\s*(?!#)|@import/i.test(text)) return [`${file}: active or external SVG content`]
+  }
   if (/(?:postgres(?:ql)?|mysql|redis):\/\/[^\s/]+:[^\s/@]+@|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|C:\\Users\\|\/app\/engine\//i.test(text)) return [`${file}: private content marker`]
   return []
 }

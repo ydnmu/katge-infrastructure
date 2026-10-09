@@ -32,6 +32,7 @@ export function checkLinks(root, files) {
     }
     for (const match of content.matchAll(/!?\[([^\]]+)\](?![\[(:])/g)) { const target = definitions.get(label(match[1])); if (target) targets.push(target) }
     for (const match of content.matchAll(/<(?:a|img)\b[^>]*\b(?:href|src)=["']([^"']+)["'][^>]*>/gi)) targets.push(match[1])
+    for (const match of content.matchAll(/<source\b[^>]*\bsrcset=["']([^"']+)["'][^>]*>/gi)) targets.push(...match[1].split(',').map(value => value.trim().split(/\s+/)[0]))
     for (const target of new Set(targets)) {
       if (/^[a-z][a-z0-9+.-]*:/i.test(target) || target.startsWith('//')) {
         try {
@@ -58,7 +59,7 @@ export function checkLinks(root, files) {
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-  const files = ['README.md', 'SECURITY.md', 'CHANGELOG.md', 'assets/PROVENANCE.md', 'docs/architecture.md', 'docs/extension.md', 'docs/api.md', 'docs/privacy.md']
+  const files = ['README.md', 'SECURITY.md', 'CHANGELOG.md', 'assets/PROVENANCE.md', 'docs/architecture.md', 'docs/extension.md', 'docs/api.md', 'docs/mcp.md', 'docs/website.md', 'docs/releases.md', 'docs/privacy.md']
   const failures = checkLinks(root, files)
   if (failures.length) { console.error(failures.join('\n')); process.exitCode = 1 }
   else console.log(`Publication-safe documentation links passed: ${files.length} documents.`)

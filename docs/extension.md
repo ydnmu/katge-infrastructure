@@ -1,9 +1,22 @@
-# Browser extension
+# Katge browser extensions
 
 The 1.1.0 client provides source selection, preview, time-range inputs and browser
 file saving. Source inspection, processing decisions and extraction remain on the
 Katge service. The client has no local media-engine fallback and requires a
 compatible backend.
+
+[Overview](../README.md) · [Product website](website.md) · [Release status](releases.md)
+
+## The browser workflow
+
+Start from the media you are browsing. Select a source, inspect its available
+formats and duration, preview it, choose the start/end of the interval and save
+the completed result. The browser interface keeps selection close to the source.
+
+For example, a user can choose an eight-second passage from a supported public
+video and request MP4. Source availability and format support determine whether
+that request can complete. Inspect first; there is no promise of universal
+platform support.
 
 Requests include a source URL, an installation identity and an API credential.
 Some providers require bounded observations of public-player fields. A service
@@ -20,10 +33,8 @@ No download URL is provided here until the service, package hashes, browser
 behavior and release review are accepted. Chromium, Firefox and Opera are build
 targets; a build target is not a store approval or live compatibility guarantee.
 
-The 9 October 2026 invalid-request protocol probe received HTTP 404 from the
-production session, inspection, planning and observation-spec routes. This is
-a publication blocker. Authenticated live flows and browser acceptance still
-need to pass after the compatible deployment is available.
+See [Availability and acceptance](releases.md#browser-candidate-acceptance) for
+the service and browser checks blocking the new release.
 
 ## Installation after publication
 

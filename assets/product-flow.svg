@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="570" viewBox="0 0 1280 570" role="img" aria-labelledby="title desc">
+<title id="title">Katge Infrastructure product flow</title>
+<desc id="desc">A supported public media source and a chosen time range enter Katge. Inspect, select and retrieve through browser extensions, REST API or MCP. Search is a development preview. This is a product view without internal components.</desc>
+<defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#a9b8a0" opacity=".35"/></pattern><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 7 4 1 7" fill="none" stroke="#426c2c" stroke-width="1.3"/></marker></defs>
+<rect x=".5" y=".5" width="1279" height="569" rx="12" fill="#fafcf8" stroke="#d7dfd1"/>
+<rect x="1" y="1" width="1278" height="568" rx="12" fill="url(#dots)"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="48" y="42" font-size="12" fill="#426c2c" font-family="Consolas, monospace" letter-spacing="1">KATGE / INFRASTRUCTURE</text>
+<text x="1232" y="42" font-size="11" fill="#667560" font-family="Consolas, monospace" letter-spacing="1" text-anchor="end">PRODUCT OVERVIEW</text>
+<text x="48" y="94" font-size="34" fill="#1c2a17" font-weight="650">One media workflow. Three ways to use it.</text>
+<text x="48" y="126" font-size="16" fill="#667560" >Start with a source. Choose a moment. Take the result into your workflow.</text>
+<text x="48" y="182" font-size="11" fill="#667560" font-family="Consolas, monospace" letter-spacing="1">YOUR INPUT</text>
+<text x="442" y="182" font-size="11" fill="#667560" font-family="Consolas, monospace" letter-spacing="1">PUBLIC CAPABILITIES</text>
+<text x="968" y="182" font-size="11" fill="#667560" font-family="Consolas, monospace" letter-spacing="1">USE THROUGH</text>
+<rect x="48" y="202" width="244" height="244" rx="8" fill="#ffffff" stroke="#d7dfd1"/>
+<g transform="translate(72 227)" fill="none" stroke="#1c2a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 7h7a6 6 0 0 1 0 12h-5M13 19H6A6 6 0 0 1 6 7h5M8 13h10"/></g>
+<text x="108" y="244" font-size="17" fill="#1c2a17" font-weight="600">Public media</text>
+<text x="72" y="278" font-size="13" fill="#667560" >Supported video or audio URL</text>
+<path d="M72 299H268" stroke="#d7dfd1"/>
+<g transform="translate(72 318)" fill="none" stroke="#1c2a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14h24M6 8v12M22 8v12"/><rect x="6" y="9" width="16" height="10" rx="1"/></g>
+<text x="108" y="334" font-size="17" fill="#1c2a17" font-weight="600">Your interval</text>
+<text x="72" y="370" font-size="19" fill="#426c2c" font-family="Consolas, monospace">00:12 → 00:20</text>
+<text x="72" y="422" font-size="10" fill="#667560" font-family="Consolas, monospace" letter-spacing="1">PUBLIC / NON-DRM</text>
+<path d="M302 324H412" fill="none" stroke="#426c2c" stroke-width="1.7" marker-end="url(#arrow)"/>
+<text x="356" y="310" font-size="10" fill="#667560" font-family="Consolas, monospace" letter-spacing="1" text-anchor="middle">REQUEST</text>
+<rect x="424" y="202" width="400" height="244" rx="8" fill="#e9f2e1" stroke="#426c2c" stroke-width="1.3"/>
+<text x="624" y="263" font-size="43" fill="#223d17" font-weight="700" text-anchor="middle">katge</text>
+<text x="624" y="289" font-size="11" fill="#426c2c" font-family="Consolas, monospace" letter-spacing="1" text-anchor="middle">MEDIA INFRASTRUCTURE</text>
+<text x="624" y="335" font-size="21" fill="#223d17" font-weight="500" text-anchor="middle">Inspect  ·  Select  ·  Retrieve</text>
+<text x="624" y="364" font-size="15" fill="#667560" text-anchor="middle">MP4 / MP3 excerpts</text>
+<rect x="480" y="389" width="288" height="32" rx="4" fill="#fafcf8" stroke="#d7dfd1" stroke-dasharray="3 3"/>
+<text x="624" y="410" font-size="10" fill="#667560" font-family="Consolas, monospace" letter-spacing="1" text-anchor="middle">SEARCH · DEVELOPMENT PREVIEW</text>
+<path d="M834 324H914M914 243V405M914 243H956M914 324H956M914 405H956" fill="none" stroke="#426c2c" stroke-width="1.7"/>
+<path d="M948 243H956" fill="none" stroke="#426c2c" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M948 324H956" fill="none" stroke="#426c2c" stroke-width="1.7" marker-end="url(#arrow)"/>
+<path d="M948 405H956" fill="none" stroke="#426c2c" stroke-width="1.7" marker-end="url(#arrow)"/>
+<circle cx="914" cy="324" r="3.2" fill="#426c2c"/>
+<rect x="968" y="202" width="264" height="78" rx="8" fill="#ffffff" stroke="#d7dfd1"/>
+<g transform="translate(986 227)" fill="none" stroke="#1c2a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h7a4 4 0 1 1 8 0h6v8a4 4 0 1 0 0 8v7H3v-7a4 4 0 1 0 0-8z"/></g>
+<text x="1028" y="235" font-size="17" fill="#1c2a17" font-weight="600">Extensions</text>
+<text x="1028" y="258" font-size="12" fill="#667560" >People in the browser</text>
+<rect x="968" y="285" width="264" height="78" rx="8" fill="#ffffff" stroke="#d7dfd1"/>
+<g transform="translate(986 310)" fill="none" stroke="#1c2a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 4-7 9 7 9M19 4l7 9-7 9M16 2l-5 22"/></g>
+<text x="1028" y="318" font-size="17" fill="#1c2a17" font-weight="600">REST API</text>
+<text x="1028" y="341" font-size="12" fill="#667560" >Applications and integrations</text>
+<rect x="968" y="368" width="264" height="78" rx="8" fill="#ffffff" stroke="#d7dfd1"/>
+<g transform="translate(986 393)" fill="none" stroke="#1c2a17" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="24" height="16" rx="3"/><path d="M14 1v4M8 25v-4M20 25v-4"/><circle cx="9" cy="13" r="1"/><circle cx="19" cy="13" r="1"/></g>
+<text x="1028" y="401" font-size="17" fill="#1c2a17" font-weight="600">MCP</text>
+<text x="1028" y="424" font-size="12" fill="#667560" >AI assistants and agents</text>
+<path d="M48 486H1232" stroke="#d7dfd1"/>
+<text x="48" y="516" font-size="10" fill="#667560" font-family="Consolas, monospace" letter-spacing="1">PRODUCT FLOW · IMPLEMENTATION REMAINS PRIVATE</text>
+<text x="1232" y="516" font-size="12" fill="#667560" text-anchor="end">Availability and format depend on the source and enabled service.</text>
+</g></svg>

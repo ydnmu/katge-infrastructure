@@ -1,5 +1,17 @@
 # Release status
 
+## 9 October 2026 — Katge Infrastructure
+
+The public repository becomes Katge Infrastructure, the main product and
+integration hub. Its README introduces extensions, REST API, MCP and the website
+together. Original light/dark product diagrams explain the source-to-result
+workflow without mapping internal components. Dedicated API, MCP, website and
+availability pages separate public contracts from release acceptance.
+
+Implementation source remains in its separate repositories. This publication
+updates the GitHub presentation; it does not deploy a service, publish a browser
+package or enable public search.
+
 ## 9 October 2026 — public presentation
 
 Public documentation describes the backend-connected architecture and its actual

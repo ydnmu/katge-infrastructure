@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process'
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve, sep } from 'node:path'
-import { historyFindings } from './history.mjs'
+import { historyFindings, contentFindings } from './history.mjs'
 
 test('presentation history detects removed sensitive content and unrelated roots without echoing values', () => {
   const root = mkdtempSync(join(tmpdir(), 'katge-history-'))
@@ -25,5 +25,12 @@ test('presentation history detects removed sensitive content and unrelated roots
   } finally {
     assert.ok(resolve(root).startsWith(resolve(tmpdir()) + sep))
     rmSync(root, { recursive: true, force: true })
+  }
+})
+
+test('product diagrams allow static local shapes and reject executable or external SVG resources', () => {
+  assert.deepEqual(contentFindings('flow.svg', Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" /></defs><rect fill="url(#grid)" /></svg>')), [])
+  for (const content of ['<svg onload="alert(1)"></svg>', '<svg><script>1</script></svg>', '<svg><image href="https://example.invalid/a.png" /></svg>', '<svg><rect fill="url(https://example.invalid/a)" /></svg>', '<svg><foreignObject /></svg>']) {
+    assert.equal(contentFindings('flow.svg', Buffer.from(content)).length, 1)
   }
 })

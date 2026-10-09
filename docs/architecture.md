@@ -1,54 +1,61 @@
-# Public architecture
+# How Katge works
 
-Katge selects and materializes a requested interval from supported public,
-non-DRM media. Source format and access determine which delivery path is available.
-No fixed bandwidth-saving percentage or platform-wide compatibility is promised.
+Katge brings the part of a supported media source into the workflow that needs
+it. People use a browser extension, applications use REST, and assistants use MCP.
+The public contract is a source, an interval, a request state and a result.
 
-## Interfaces and execution
+[Overview](../README.md) · [API](api.md) · [MCP](mcp.md) · [Extensions](extension.md)
 
-The browser extension provides source selection, preview, time-range inputs and
-file saving. It sends source URLs and bounded public-player observations to an
-authenticated service. It executes generic transport instructions returned by
-that service. Some plans require media to be uploaded for backend processing.
-There is no local extraction-engine fallback in the 1.1.0 client.
-
-REST and MCP share application contracts for source inspection, durable jobs,
-cancellation and result access. Tenant identity and granted scopes determine
-access. A private worker performs media processing; server-side implementation
-and signing material are excluded from public packages.
+## The product flow
 
 ```mermaid
 flowchart LR
-  Browser[Browser extension] -->|Source, interval and media transport when required| API[Authenticated service]
-  Agent[REST or MCP client] -->|Supported contract| API
-  API -->|Processing job| Worker[Private media worker]
-  Worker -->|Validated output| Result[Time-limited result access]
-  Result -->|Finished file| Browser
-  Result -->|Result contract| Agent
+  Source["Supported public media"] --> Intent["Source + chosen interval"]
+  Intent --> Katge["Katge"]
+  Katge --> Result["Selected media + status"]
+  Browser["Extensions"] --- Katge
+  Application["REST API"] --- Katge
+  Assistant["MCP"] --- Katge
 ```
 
-The diagram describes the backend-connected candidate architecture. It does not
-certify the current public deployment or any older store version.
+This is a view of externally visible behavior. The Katge box intentionally
+represents the product as a whole; the diagram is not a map of its implementation
+or deployment.
 
-## Optional search contracts
+## Inspect
 
-Speech search currently matches literal transcript text. Visual search returns
-ranked frame candidates. Multimodal AND/OR combines evidence on a common timeline.
-Coverage and partial reasons describe what was examined and what remains unknown.
-A client chooses extraction intervals; search does not automatically make clips.
+A client supplies a supported public media URL and receives source metadata and
+available capabilities. Availability, source format and granted access determine
+what can be requested. Public, non-DRM media only.
 
-Search requires explicit enablement and grants in a prepared deployment. It is
-disabled by default and has not been announced as a live public service. Turkish
-visual-query quality, natural-video acceptance and long-audio/HLS paths remain
-limited. An API schema documents a contract, not production availability.
+## Select
 
-## Public and private material
+The person, application or assistant chooses the interval and output format.
+Requests are validated against the source and the caller's permissions and limits.
+An accepted asynchronous request returns a job identity and state. Clients can
+follow progress and request cancellation through their interface.
 
-Publishable material can describe endpoints, field limits, scope requirements,
-job states, data flow and verified limitations. Browser packages contain the
-generic client, declared permissions and required legal notices.
+## Retrieve
 
-Private implementation, environment values, infrastructure configuration,
-database details, source maps, signed URLs, credentials and sensitive logs must
-not enter public assets, examples, packages or issue reports. Old commits and
-archives need review independently of the current source tree.
+A completed request exposes result metadata and time-limited delivery access.
+The browser can save a file, an application can use the result, and an assistant
+can return it to the user. Failed or cancelled requests expose a stable state
+instead of an invented result.
+
+## Search is an optional starting point
+
+An explicitly enabled search preview can suggest timestamped candidates from
+speech, visual or combined evidence. Candidates include coverage and partial
+status. The client decides which interval to extract; search does not verify
+every event or create clips automatically.
+
+## Public explanation, separate implementation
+
+This repository describes interfaces, accepted inputs, user workflows and result
+contracts. It contains no processing source, infrastructure configuration or
+operational credentials. Implementation source is maintained separately.
+
+The browser client requires the Katge service. Some requests transfer media for
+backend processing; this is not a promise of entirely local execution. Read
+[Privacy and data flow](privacy.md) and [Availability](releases.md) before using
+or describing an integration.

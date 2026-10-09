@@ -10,3 +10,9 @@ included. Katge branding remains the project's existing artwork; this repository
 does not grant a new license for it.
 
 Preview SHA-256: 274cfe100a1c0d965e31a439e8ab89e3cb5c377cf517308acf5d8ace7e8fe010.
+
+`product-flow.svg` and `product-flow-dark.svg` are original static vector
+illustrations for Katge Infrastructure, with light and dark palettes. They
+describe public inputs, product capabilities and client interfaces. They use
+system fonts and contain no external resources, executable content or internal
+component diagram. The existing Katge brand mark is unchanged.
