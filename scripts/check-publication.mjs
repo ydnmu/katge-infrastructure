@@ -10,6 +10,7 @@ export const allowed = new Set([
   '.gitattributes', '.gitignore', 'README.md', 'SECURITY.md', 'CHANGELOG.md',
   'assets/katge-mark.png', 'assets/product-preview.png', 'assets/PROVENANCE.md',
   'assets/product-flow.svg', 'assets/product-flow-dark.svg',
+  'assets/product-flow.gif', 'assets/product-flow-dark.gif',
   'docs/architecture.md', 'docs/api.md', 'docs/extension.md', 'docs/privacy.md', 'docs/search-openapi.json',
   'docs/mcp.md', 'docs/website.md', 'docs/releases.md',
   'scripts/check-publication.mjs', 'scripts/doc-links.mjs',

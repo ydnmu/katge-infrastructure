@@ -1,5 +1,12 @@
 # Release status
 
+## 9 October 2026 — animated product flow
+
+The Infrastructure README now animates source selection, request flow and result
+delivery through the three client interfaces. Light/dark GIFs retain the original
+diagram and readable labels. Reduced-motion preferences select the static SVGs,
+which are also linked directly. The animation illustrates public product behavior.
+
 ## 9 October 2026 — Katge Infrastructure
 
 The public repository becomes Katge Infrastructure, the main product and

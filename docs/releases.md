@@ -44,8 +44,8 @@ node --test scripts/history.test.mjs
 node scripts/check-publication.mjs
 ```
 
-The guard checks approved files, documentation links, static SVG assets and
-reachable Git history, including removed content. Its reviewed isolated root
+The guard checks approved files, documentation links, static SVG and animated GIF
+assets, and reachable Git history, including removed content. Its reviewed isolated root
 does not inherit the private source repositories' history.
 
 After committing a reviewed tree, `node scripts/export.mjs` creates an

@@ -14,9 +14,13 @@
 </p>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/product-flow-dark.svg" />
-  <img src="assets/product-flow.svg" width="1280" alt="A public media source and a chosen interval enter Katge; people use extensions, applications use REST API, and agents use MCP to retrieve selected media. Search is a development preview." />
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/product-flow-dark.svg" />
+  <source media="(prefers-reduced-motion: reduce)" srcset="assets/product-flow.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="assets/product-flow-dark.gif" />
+  <img src="assets/product-flow.gif" width="1280" alt="Animated product flow: a public media source and chosen interval enter Katge; inspect, select and retrieve are highlighted, then results flow to extensions, REST API and MCP. Search is a development preview." />
 </picture>
+
+<p align="center"><sub><a href="assets/product-flow.svg">Static diagram</a> · <a href="assets/product-flow-dark.svg">Dark static diagram</a></sub></p>
 
 ## The part matters
 

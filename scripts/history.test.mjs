@@ -34,3 +34,18 @@ test('product diagrams allow static local shapes and reject executable or extern
     assert.equal(contentFindings('flow.svg', Buffer.from(content)).length, 1)
   }
 })
+
+test('product animations reject truncated blocks, non-image payloads and appended data', () => {
+  const header = Buffer.from('47494638396101000100800000000000ffffff', 'hex')
+  const loop = Buffer.from('21ff0b4e45545343415045322e300301000000', 'hex')
+  const frame = Buffer.from('21f90404050000002c0000000001000100000202440100', 'hex')
+  const valid = Buffer.concat([header, loop, frame, frame, Buffer.from([0x3b])])
+  assert.deepEqual(contentFindings('flow.gif', valid), [])
+  for (const bad of [
+    valid.subarray(0, -1),
+    Buffer.concat([valid, Buffer.from('hidden data')]),
+    Buffer.concat([header, Buffer.from([0x21, 0xfe, 1, 65, 0]), frame, frame, Buffer.from([0x3b])]),
+    Buffer.concat([header, frame, Buffer.from([0x3b])]),
+    Buffer.from('<script>1</script>'),
+  ]) assert.equal(contentFindings('flow.gif', bad).length, 1)
+})
